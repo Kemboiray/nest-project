@@ -1,0 +1,55 @@
+###
+
+GET http://localhost:3000/users HTTP/1.0
+accept: application/json
+
+###
+
+GET http://localhost:3000/users/66deb788ac76352327b11ecf HTTP/1.0
+accept: application/json
+
+###
+
+POST http://localhost:3000/users HTTP/1.0
+accept: application/json
+content-type: application/json
+
+{
+  "email": "kemboiray@gmail.com",
+  "name": "Raymond Kemboi",
+  "password": "artwi"
+}
+
+###
+
+POST http://localhost:3000/users HTTP/1.0
+accept: application/json
+content-type: application/json
+
+{
+  "email": "kemboiray@proton.me",
+  "name": "Raymond Kemboi",
+  "password": "artwi"
+}
+
+###
+
+PUT http://localhost:3000/users/66def604e57d9d741ea085a5 HTTP/1.0
+accept: application/json
+content-type: application/json
+
+{
+  "name": "Kipkoech Kemboi Bandore"
+}
+
+###
+
+GET http://localhost:3000/users/66def604e57d9d741ea085a5 HTTP/1.0
+accept: application/json
+
+###
+
+DELETE http://localhost:3000/users/66deb89bac76352327b11ed5
+accept: application/json
+
+###
