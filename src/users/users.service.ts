@@ -2,9 +2,14 @@ import { CreateUserDto } from "./dto/create-user.dto";
 import { UpdateUserDto } from "./dto/update-user.dto";
 import { InjectModel } from "@nestjs/mongoose";
 import { User, UserDocument } from "./schemas/user.schema";
-import { Model } from "mongoose";
+import { isValidObjectId, Model } from "mongoose";
 import * as bcrypt from "bcrypt";
-import { ConflictException, Injectable } from "@nestjs/common";
+import {
+  BadRequestException,
+  ConflictException,
+  Injectable,
+  NotFoundException,
+} from "@nestjs/common";
 
 @Injectable()
 export class UsersService {
@@ -30,8 +35,15 @@ export class UsersService {
     return this.userModel.find().exec();
   }
 
-  async findOne(id: string): Promise<UserDocument | null> {
-    return this.userModel.findById(id).exec();
+  async findOne(id: string): Promise<User> {
+    if (!isValidObjectId(id)) {
+      throw new BadRequestException("Please provide a valid `id`");
+    }
+    const user = await this.userModel.findById(id).exec();
+    if (user === null) {
+      throw new NotFoundException(`User with id ${id} does not exist`);
+    }
+    return user;
   }
 
   async findByUsername(name: string): Promise<UserDocument | null> {
@@ -45,12 +57,22 @@ export class UsersService {
     if (updateUserDto.password) {
       updateUserDto.password = await bcrypt.hash(updateUserDto.password, 10);
     }
+    if (!isValidObjectId(id)) {
+      throw new BadRequestException("Please provide a valid `id`");
+    }
     return this.userModel
       .findByIdAndUpdate(id, updateUserDto, { new: true })
       .exec();
   }
 
   async remove(id: string): Promise<UserDocument | null> {
+    if (!isValidObjectId(id)) {
+      throw new BadRequestException("Please provide a valid `id`");
+    }
+    const user = await this.userModel.findById(id).exec();
+    if (user === null) {
+      throw new NotFoundException(`User with id ${id} does not exist`);
+    }
     return this.userModel.findByIdAndDelete(id).exec();
   }
 }
