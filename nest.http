@@ -13,14 +13,14 @@ accept: application/json
 ###
 # Create a user. Should fail with 409 if repeated.
 
-POST http://localhost:3000/users HTTP/1.0
+POST http://localhost:3000/auth/register HTTP/1.0
 accept: application/json
 content-type: application/json
 
 {
-  "email": "kemboiray@gmail.com",
-  "name": "Raymond Kemboi",
-  "password": "artwi"
+  "email": "brian@gmail.com",
+  "name": "Brian Kemboi",
+  "password": "3359"
 }
 
 
