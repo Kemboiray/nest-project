@@ -18,8 +18,8 @@ accept: application/json
 content-type: application/json
 
 {
-  "email": "brian@gmail.com",
-  "name": "Brian Kemboi",
+  "email": "brenda@gmail.com",
+  "name": "Brenda Kemboi",
   "password": "3359"
 }
 
