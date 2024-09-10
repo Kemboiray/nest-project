@@ -31,8 +31,8 @@ Accept: application/json
 Content-type: application/json
 
 {
-  "email": "daisy@gmail.com",
-  "name": "Daisy Kemboi",
+  "email": "gait@gmail.com",
+  "name": "Gait Pkiach",
   "password": "3354"
 }
 
@@ -63,12 +63,13 @@ Content-type: application/json
 ###
 # Update a user
 
-PUT http://localhost:3000/users/66def604e57d9d741ea085a5 HTTP/1.0
+PUT http://localhost:3000/users/66df5d4aeb95a72262a71cb1 HTTP/1.0
 Accept: application/json
 Content-type: application/json
+Authorization: Bearer {{login.response.body.$.access_token}}
 
 {
-  "name": "Kipkoech Kemboi Mantis"
+  "name": "Brian Rop"
 }
 
 ###
