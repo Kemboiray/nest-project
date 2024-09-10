@@ -23,6 +23,41 @@ content-type: application/json
   "password": "3359"
 }
 
+###
+# Log in
+
+POST http://localhost:3000/auth/login HTTP/1.0
+accept: application/json
+content-type: application/json
+
+{
+  "email": "brian@gmail.com",
+  "password": "3359"
+}
+
+###
+# Log in with wrong password. Should return 401 error.
+
+POST http://localhost:3000/auth/login HTTP/1.0
+accept: application/json
+content-type: application/json
+
+{
+  "email": "brian@gmail.com",
+  "password": "8359"
+}
+
+###
+# Log in with non-existent email. Should return 404 error.
+
+POST http://localhost:3000/auth/login HTTP/1.0
+accept: application/json
+content-type: application/json
+
+{
+  "email": "briancada@gmail.com",
+  "password": "3359"
+}
 
 ###
 # Update a user
@@ -32,7 +67,7 @@ accept: application/json
 content-type: application/json
 
 {
-  "name": "Kipkoech Kemboi Bandore"
+  "name": "Kipkoech Kemboi Mantis"
 }
 
 ###
