@@ -13,11 +13,11 @@ export class AppConfig {
 }
 
 export const databaseConfig = registerAs("database", (): DatabaseConfig => {
-  if (!process.env.DATABASE_URL) {
-    throw new Error("DATABASE_URL environment variable is not set");
+  if (!process.env.MONGODB_URI) {
+    throw new Error("MONGODB_URI environment variable is not set");
   }
   return {
-    url: process.env.DATABASE_URL,
+    url: process.env.MONGODB_URI,
   };
 });
 
