@@ -1,34 +1,8 @@
 ###
-# GET all users
-
-GET http://localhost:3000/users HTTP/1.0
-accept: application/json
-
-###
-# GET a user by `id`
-
-GET http://localhost:3000/users/66deb788ac76352327b11ecf HTTP/1.0
-accept: application/json
-
-###
-# Create a user. Should fail with 409 if repeated.
-
-POST http://localhost:3000/auth/register HTTP/1.0
-accept: application/json
-content-type: application/json
-
-{
-  "email": "brenda@gmail.com",
-  "name": "Brenda Kemboi",
-  "password": "3359"
-}
-
-###
-# Log in
-
+# @name login
 POST http://localhost:3000/auth/login HTTP/1.0
-accept: application/json
-content-type: application/json
+Accept: application/json
+Content-type: application/json
 
 {
   "email": "brian@gmail.com",
@@ -36,11 +10,38 @@ content-type: application/json
 }
 
 ###
+# GET all users
+
+GET http://localhost:3000/users HTTP/1.0
+Accept: application/json
+Authorization: Bearer {{login.response.body.$.access_token}}
+
+###
+# GET a user by `id`
+
+GET http://localhost:3000/users/66deb788ac76352327b11ecf HTTP/1.0
+Accept: application/json
+Authorization: Bearer {{login.response.body.$.access_token}}
+
+###
+# Create a user. Should fail with 409 if repeated.
+
+POST http://localhost:3000/auth/register HTTP/1.0
+Accept: application/json
+Content-type: application/json
+
+{
+  "email": "daisy@gmail.com",
+  "name": "Daisy Kemboi",
+  "password": "3354"
+}
+
+###
 # Log in with wrong password. Should return 401 error.
 
 POST http://localhost:3000/auth/login HTTP/1.0
-accept: application/json
-content-type: application/json
+Accept: application/json
+Content-type: application/json
 
 {
   "email": "brian@gmail.com",
@@ -51,8 +52,8 @@ content-type: application/json
 # Log in with non-existent email. Should return 404 error.
 
 POST http://localhost:3000/auth/login HTTP/1.0
-accept: application/json
-content-type: application/json
+Accept: application/json
+Content-type: application/json
 
 {
   "email": "briancada@gmail.com",
@@ -63,8 +64,8 @@ content-type: application/json
 # Update a user
 
 PUT http://localhost:3000/users/66def604e57d9d741ea085a5 HTTP/1.0
-accept: application/json
-content-type: application/json
+Accept: application/json
+Content-type: application/json
 
 {
   "name": "Kipkoech Kemboi Mantis"
@@ -74,17 +75,20 @@ content-type: application/json
 # GET a user (with malformed `id`). Should return 400
 
 GET http://localhost:3000/users/6def604e57d9d741ea085a5 HTTP/1.0
-accept: application/json
+Accept: application/json
+Authorization: Bearer {{login.response.body.$.access_token}}
 
 ###
 # GET a non-existent user
 GET http://localhost:3000/users/66dcf604e57d9d741ea085a5 HTTP/1.0
-accept: application/json
+Accept: application/json
+Authorization: Bearer {{login.response.body.$.access_token}}
 
 
 ###
 
-DELETE http://localhost:3000/users/66deb89bac76352327b11ed5
-accept: application/json
+DELETE http://localhost:3000/users/66deb89bac76352327b11ed5 HTTP/1.0
+Accept: application/json
+Authorization: Bearer {{login.response.body.$.access_token}}
 
 ###

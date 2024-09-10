@@ -13,6 +13,6 @@ import { ConfigService } from "@nestjs/config";
     }),
   );
   const configService = app.get(ConfigService);
-  const port = configService.get<number>("app.port");
-  await app.listen(port || 3000);
+  const port = configService.getOrThrow<number>("app.port");
+  await app.listen(port);
 })();
