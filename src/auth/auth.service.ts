@@ -3,7 +3,7 @@ import {
   NotFoundException,
   UnauthorizedException,
 } from "@nestjs/common";
-import { UsersService } from "src/users/users.service";
+import { UsersService } from "../users/users.service";
 import * as bcrypt from "bcrypt";
 import { LogInDto } from "./dto/login.dto";
 import { JwtService } from "@nestjs/jwt";
@@ -25,6 +25,10 @@ export class AuthService {
       throw new UnauthorizedException("Invalid credentials");
     }
     const payload = { sub: user.id, name: user.name };
-    return { access_token: await this.jwtService.signAsync(payload) };
+    return {
+      token_type: "Bearer",
+      expires_in: 1800,
+      access_token: await this.jwtService.signAsync(payload),
+    };
   }
 }

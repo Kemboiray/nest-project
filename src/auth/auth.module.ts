@@ -16,7 +16,7 @@ import { AuthGuard } from "./auth.guard";
       imports: [ConfigModule],
       useFactory: async (configService: ConfigService) => ({
         secret: configService.getOrThrow<string>("auth.jwtSecret"),
-        signOptions: { expiresIn: 60 },
+        signOptions: { expiresIn: "30m" },
       }),
       inject: [ConfigService],
     }),

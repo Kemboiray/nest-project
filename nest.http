@@ -63,13 +63,13 @@ Content-type: application/json
 ###
 # Update a user
 
-PUT http://localhost:3000/users/66df5d4aeb95a72262a71cb1 HTTP/1.0
+PUT http://localhost:3000/users/66deb788ac76352327b11ecf HTTP/1.0
 Accept: application/json
 Content-type: application/json
 Authorization: Bearer {{login.response.body.$.access_token}}
 
 {
-  "name": "Brian Rop"
+  "name": "Ray Kemboi K",
 }
 
 ###
