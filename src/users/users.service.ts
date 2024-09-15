@@ -25,7 +25,9 @@ export class UsersService {
       return await createdUser.save();
     } catch (error) {
       if (error.code === 11000) {
-        throw new ConflictException("User with given email already exists");
+        throw new ConflictException(
+          `${createUserDto.email} is associated with an existing account`,
+        );
       }
       throw error;
     }
@@ -41,24 +43,42 @@ export class UsersService {
     }
     const user = await this.userModel.findById(id).exec();
     if (user === null) {
-      throw new NotFoundException(`User with id ${id} does not exist`);
+      throw new NotFoundException(`User with id ${id} not found`);
     }
     return user;
   }
 
-  async findByEmail(email: string): Promise<UserDocument | null> {
-    return this.userModel.findOne({ email: email }).exec();
+  async findByEmail(email: string): Promise<UserDocument> {
+    const user = await this.userModel.findOne({ email: email }).exec();
+    if (user === null) {
+      throw new NotFoundException(`No user with email ${email}`);
+    }
+    return user;
   }
 
   async update(
     id: string,
     updateUserDto: UpdateUserDto,
   ): Promise<UserDocument | null> {
+    await this.findOne(id);
+    const email = updateUserDto.email;
+    if (email) {
+      let userByEmail;
+      try {
+        userByEmail = await this.findByEmail(email);
+        if (userByEmail.id !== id) {
+          throw new ConflictException(
+            `${email} is associated with another existing account`,
+          );
+        }
+      } catch (error) {
+        if (!(error instanceof NotFoundException)) {
+          throw error;
+        }
+      }
+    }
     if (updateUserDto.password) {
       updateUserDto.password = await bcrypt.hash(updateUserDto.password, 10);
-    }
-    if (!isValidObjectId(id)) {
-      throw new BadRequestException("Please provide a valid `id`");
     }
     return this.userModel
       .findByIdAndUpdate(id, updateUserDto, { new: true })
@@ -66,13 +86,7 @@ export class UsersService {
   }
 
   async remove(id: string): Promise<UserDocument | null> {
-    if (!isValidObjectId(id)) {
-      throw new BadRequestException("Please provide a valid `id`");
-    }
-    const user = await this.userModel.findById(id).exec();
-    if (user === null) {
-      throw new NotFoundException(`User with id ${id} does not exist`);
-    }
+    await this.findOne(id);
     return this.userModel.findByIdAndDelete(id).exec();
   }
 }

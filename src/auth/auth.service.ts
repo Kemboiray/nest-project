@@ -17,9 +17,6 @@ export class AuthService {
   async logIn(logInDto: LogInDto): Promise<any> {
     const { email, password: pass } = logInDto;
     const user = await this.usersService.findByEmail(email);
-    if (user === null) {
-      throw new NotFoundException(`No user with email ${email}`);
-    }
     const passwordMatch = await bcrypt.compare(pass, user.password);
     if (!passwordMatch) {
       throw new UnauthorizedException("Invalid credentials");

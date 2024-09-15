@@ -1,45 +1,45 @@
 ###
 # @name login
-POST http://localhost:3000/auth/login HTTP/1.0
+POST http://localhost:3000/auth/login
 Accept: application/json
 Content-type: application/json
 
 {
-  "email": "brian@gmail.com",
-  "password": "3359"
+  "email": "kemboiray717@gmail.com",
+  "password": "335482"
 }
 
 ###
 # GET all users
 
-GET http://localhost:3000/users HTTP/1.0
+GET http://localhost:3000/users
 Accept: application/json
 Authorization: Bearer {{login.response.body.$.access_token}}
 
 ###
 # GET a user by `id`
 
-GET http://localhost:3000/users/66deb788ac76352327b11ecf HTTP/1.0
+GET http://localhost:3000/users/66e5d9a8d3b4a7819f7a7960
 Accept: application/json
 Authorization: Bearer {{login.response.body.$.access_token}}
 
 ###
 # Create a user. Should fail with 409 if repeated.
 
-POST http://localhost:3000/auth/register HTTP/1.0
+POST http://localhost:3000/auth/register
 Accept: application/json
 Content-type: application/json
 
 {
-  "email": "gait@gmail.com",
-  "name": "Gait Pkiach",
+  "email": "kemboiray717@gmail.com",
+  "name": "Raymond Kemboi",
   "password": "3354"
 }
 
 ###
 # Log in with wrong password. Should return 401 error.
 
-POST http://localhost:3000/auth/login HTTP/1.0
+POST http://localhost:3000/auth/login
 Accept: application/json
 Content-type: application/json
 
@@ -51,7 +51,7 @@ Content-type: application/json
 ###
 # Log in with non-existent email. Should return 404 error.
 
-POST http://localhost:3000/auth/login HTTP/1.0
+POST http://localhost:3000/auth/login
 Accept: application/json
 Content-type: application/json
 
@@ -63,32 +63,32 @@ Content-type: application/json
 ###
 # Update a user
 
-PUT http://localhost:3000/users/66deb788ac76352327b11ecf HTTP/1.0
+PUT http://localhost:3000/users/66e5d9a8d3b4a7819f7a7960
 Accept: application/json
 Content-type: application/json
 Authorization: Bearer {{login.response.body.$.access_token}}
 
 {
-  "name": "Ray Kemboi K",
+  "email": "kemboiray@gmail.com"
 }
 
 ###
 # GET a user (with malformed `id`). Should return 400
 
-GET http://localhost:3000/users/6def604e57d9d741ea085a5 HTTP/1.0
+GET http://localhost:3000/users/6def604e57d9d741ea085a5
 Accept: application/json
 Authorization: Bearer {{login.response.body.$.access_token}}
 
 ###
 # GET a non-existent user
-GET http://localhost:3000/users/66dcf604e57d9d741ea085a5 HTTP/1.0
+GET http://localhost:3000/users/66dcf604e57d9d741ea085a5
 Accept: application/json
 Authorization: Bearer {{login.response.body.$.access_token}}
 
 
 ###
 
-DELETE http://localhost:3000/users/66deb89bac76352327b11ed5 HTTP/1.0
+DELETE http://localhost:3000/users/66e08d43a6b88e4b760973df
 Accept: application/json
 Authorization: Bearer {{login.response.body.$.access_token}}
 

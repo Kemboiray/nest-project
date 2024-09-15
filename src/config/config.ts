@@ -1,7 +1,7 @@
 import { registerAs } from "@nestjs/config";
 
 export class DatabaseConfig {
-  url: string;
+  uri: string;
 }
 
 export class AuthConfig {
@@ -17,7 +17,7 @@ export const databaseConfig = registerAs("database", (): DatabaseConfig => {
     throw new Error("MONGODB_URI environment variable is not set");
   }
   return {
-    url: process.env.MONGODB_URI,
+    uri: process.env.MONGODB_URI,
   };
 });
 
