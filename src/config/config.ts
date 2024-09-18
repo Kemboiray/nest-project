@@ -6,6 +6,7 @@ export class DatabaseConfig {
 
 export class AuthConfig {
   jwtSecret: string;
+  jwtExpiry: number;
 }
 
 export class AppConfig {
@@ -27,6 +28,7 @@ export const authConfig = registerAs("auth", (): AuthConfig => {
   }
   return {
     jwtSecret: process.env.JWT_SECRET,
+    jwtExpiry: parseInt(process.env.JWT_EXPIRY || "60", 10),
   };
 });
 
