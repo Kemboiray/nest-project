@@ -1,15 +1,15 @@
 import { registerAs } from "@nestjs/config";
 
-export class DatabaseConfig {
+export interface DatabaseConfig {
   uri: string;
 }
 
-export class AuthConfig {
+export interface AuthConfig {
   jwtSecret: string;
   jwtExpiry: number;
 }
 
-export class AppConfig {
+export interface AppConfig {
   port: number;
 }
 
