@@ -49,7 +49,7 @@ $ pnpm run start:prod
 $ docker build -t <app_name> .
 
 # run
-$ JWT_SECRET=<jwt_secret> docker run -p 3000:3000 <app_name>
+$ JWT_SECRET=<jwt_secret> JWT_EXPIRY=<jwt_expiry> docker run -p 3000:3000 <app_name>
 ```
 
 ## Run tests
