@@ -33,29 +33,6 @@ export class UsersService {
     }
   }
 
-  async findAll(): Promise<User[]> {
-    return this.userModel.find().exec();
-  }
-
-  async findOne(id: string): Promise<User> {
-    if (!isValidObjectId(id)) {
-      throw new BadRequestException("Please provide a valid `id`");
-    }
-    const user = await this.userModel.findById(id).exec();
-    if (user === null) {
-      throw new NotFoundException(`User with id ${id} not found`);
-    }
-    return user;
-  }
-
-  async findByEmail(email: string): Promise<UserDocument> {
-    const user = await this.userModel.findOne({ email: email }).exec();
-    if (user === null) {
-      throw new NotFoundException(`No user with email ${email}`);
-    }
-    return user;
-  }
-
   async update(
     id: string,
     updateUserDto: UpdateUserDto,
@@ -83,6 +60,29 @@ export class UsersService {
     return this.userModel
       .findByIdAndUpdate(id, updateUserDto, { new: true })
       .exec();
+  }
+
+  async findAll(): Promise<User[]> {
+    return this.userModel.find().exec();
+  }
+
+  async findOne(id: string): Promise<User> {
+    if (!isValidObjectId(id)) {
+      throw new BadRequestException("Please provide a valid `id`");
+    }
+    const user = await this.userModel.findById(id).exec();
+    if (user === null) {
+      throw new NotFoundException(`User with id ${id} not found`);
+    }
+    return user;
+  }
+
+  async findByEmail(email: string): Promise<UserDocument> {
+    const user = await this.userModel.findOne({ email: email }).exec();
+    if (user === null) {
+      throw new NotFoundException(`No user with email ${email}`);
+    }
+    return user;
   }
 
   async remove(id: string): Promise<UserDocument | null> {
