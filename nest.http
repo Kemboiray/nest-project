@@ -6,7 +6,7 @@ Content-type: application/json
 
 {
   "email": "kemboiray717@gmail.com",
-  "password": "335482"
+  "password": "3354"
 }
 
 ###
@@ -31,9 +31,9 @@ Accept: application/json
 Content-type: application/json
 
 {
-  "email": "kemboiray717@gmail.com",
-  "name": "Raymond Kemboi",
-  "password": "3354"
+  "email": "edd@yahoo.com",
+  "name": "Edwin Kemboi",
+  "password": "4210"
 }
 
 ###
@@ -63,7 +63,7 @@ Content-type: application/json
 ###
 # Update a user
 
-PUT http://localhost:3000/users/66e5d9a8d3b4a7819f7a7960
+PUT http://localhost:3000/users/66eabe3822d5c3da2c5a7420
 Accept: application/json
 Content-type: application/json
 Authorization: Bearer {{login.response.body.$.access_token}}

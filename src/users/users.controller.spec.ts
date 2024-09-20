@@ -15,7 +15,7 @@ describe("UsersController", () => {
   let service: UsersService;
 
   const mockUser: UserDocument = {
-    _id: "1",
+    _id: "66e5d9a8d3b4a7819f7a7960",
     email: "test@example.com",
     name: "John Doe",
     password: "hashedPassword",
@@ -71,8 +71,10 @@ describe("UsersController", () => {
     it("should return a single user", async () => {
       jest.spyOn(service, "findOne").mockResolvedValue(mockUser);
 
-      expect(await controller.findOne("1")).toBe(mockUser);
-      expect(service.findOne).toHaveBeenCalledWith("1");
+      expect(await controller.findOne("66e5d9a8d3b4a7819f7a7960")).toBe(
+        mockUser,
+      );
+      expect(service.findOne).toHaveBeenCalledWith("66e5d9a8d3b4a7819f7a7960");
     });
   });
 
@@ -82,8 +84,13 @@ describe("UsersController", () => {
       const updatedUser = null;
       jest.spyOn(service, "update").mockResolvedValue(updatedUser);
 
-      expect(await controller.update("1", updateUserDto)).toBe(updatedUser);
-      expect(service.update).toHaveBeenCalledWith("1", updateUserDto);
+      expect(
+        await controller.update("66e5d9a8d3b4a7819f7a7960", updateUserDto),
+      ).toBe(updatedUser);
+      expect(service.update).toHaveBeenCalledWith(
+        "66e5d9a8d3b4a7819f7a7960",
+        updateUserDto,
+      );
     });
   });
 
@@ -92,8 +99,8 @@ describe("UsersController", () => {
       const result = null;
       jest.spyOn(service, "remove").mockResolvedValue(result);
 
-      expect(await controller.remove("1")).toBe(result);
-      expect(service.remove).toHaveBeenCalledWith("1");
+      expect(await controller.remove("66e5d9a8d3b4a7819f7a7960")).toBe(result);
+      expect(service.remove).toHaveBeenCalledWith("66e5d9a8d3b4a7819f7a7960");
     });
   });
 });
