@@ -10,6 +10,7 @@ import {
   Injectable,
   NotFoundException,
 } from "@nestjs/common";
+import { UserResponseDto } from "./dto/return-user.dto";
 
 @Injectable()
 export class UsersService {
@@ -62,11 +63,11 @@ export class UsersService {
       .exec();
   }
 
-  async findAll(): Promise<User[]> {
+  async findAll(): Promise<UserResponseDto[]> {
     return this.userModel.find().exec();
   }
 
-  async findOne(id: string): Promise<User> {
+  async findOne(id: string): Promise<UserResponseDto> {
     if (!isValidObjectId(id)) {
       throw new BadRequestException("Please provide a valid `id`");
     }
@@ -78,7 +79,10 @@ export class UsersService {
   }
 
   async findByEmail(email: string): Promise<UserDocument> {
-    const user = await this.userModel.findOne({ email: email }).exec();
+    const user = await this.userModel
+      .findOne({ email: email })
+      .select("+password")
+      .exec();
     if (user === null) {
       throw new NotFoundException(`No user with email ${email}`);
     }
